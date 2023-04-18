@@ -1,0 +1,10 @@
+<div *ngIf="this.find" class="divShowDetail">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header ">
+        Denuncia
+      </div>
+      <ul class="list-group list-group-flush">
+        <div *ngFor="let item of this.denunciasSP"><li class="list-group-item"  ><span>FOLIO:</span>&nbsp;{{item.folio}}<br>STATUS:&nbsp;{{item.status}}<br>COMENTARIOS:&nbsp;{{item.comentarios}}</li></div>
+      </ul>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+
+            <button class="btn btn-primary" (click)="modal.open(register)">Registrar una denuncia</button>&nbsp; 
+
+
+<!-- Inicio Modal -->
+<form >
+<ng-template #register let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Registrar Denuncia</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()" id="botonModal" name="botonModal"></button>
+        </div>
+    <div class="modal-body">
+        <ul class="nav nav-tabs">
+          <div *ngIf="this.tab==1">
+            <li class="nav-item">
+              <a class="nav-link active"  type="button" (click)="changetab(1)" id="tab">Paso 1</a>
+            </li></div>
+            <div *ngIf="this.tab != 1">
+            <li class="nav-item" >
+              <a class="nav-link" aria-current="page" type="button" (click)="changetab(1)" id="tab" >Paso 1</a>
+            </li></div>
+            <div *ngIf="this.tab==2">
+            <li class="nav-item">
+              <a class="nav-link active" type="submit" (click)="changetab(2)" id="tab" >Paso 2</a>
+            </li></div>
+            <div *ngIf="this.tab !=2">
+            <li class="nav-item" >
+              <a class="nav-link" type="submit" (click)="changetab(2)" id="tab" >Paso 2</a>
+            </li></div>
+            <div *ngIf="this.tab == 3">
+            <li class="nav-item">
+                <a class="nav-link active" type="button" (click)="changetab(3)" id="tab" >Paso 3</a>
+              </li></div>
+              <div *ngIf="this.tab!=3">
+              <li class="nav-item" >
+                <a class="nav-link" type="button" (click)="changetab(3)" id="tab" >Paso 3</a>
+              </li></div> 
+            </ul>
+            <br><br>
+        <!-- Modal Paso 1 -->
+        <div *ngIf="this.tab ==1">
+          <h5>Empresa/Organización:</h5> 
+            <div><select class="form-select" id="selectEO"  [(ngModel)]="this.denuncia.EO_Id" name="Eo" >
+                    <option selected>Seleccione Empresa/Organización...</option>
+                    <option value="{{eo.id}}" *ngFor="let eo of this.eos">{{eo.name}}</option>
+                  </select></div>
+                  <br><br>
+                  <div *ngIf="this.denuncia.EO_Id > 0">  <h5>País:</h5> 
+                  <div><select class="form-select"  id="selectCountry"  [(ngModel)]="this.denuncia.Country_id" name="Country" 
+                    *ngIf="this.denuncia.EO_Id > 0" (ngModelChange)="getStates()" required>
+                    <option selected="true" value="0">Seleccione País...</option>
+                    <option value="{{pais.id}}" *ngFor="let pais of this.countrys">{{pais.complete_name}}</option>
+                  </select></div>
+                  <br><br>           <h5>Estado:</h5> 
+                  <div><select class="form-select"  id="selectState"  [(ngModel)]="this.denuncia.State_id" name="State" *ngIf="this.denuncia.Country_id > 0">
+                    <option >Seleccione Estado...</option>
+                    <option value="{{estado.id}}" *ngFor="let estado of this.states">{{estado.name}}</option>
+                  </select></div>
+                  <br><br>
+                  <div *ngIf="this.denuncia.State_id > 0 && this.denuncia.Country_id > 0" class="container">
+                    <div class="row">
+                        <div class="input-group mb-3 inputModal">
+                            <span class="input-group-text" id="ncentros">#Centro</span>
+                            <input type="text" (keypress)="onlyNumbers($event)" class="form-control"name="ncentro" 
+                            aria-describedby="basic-addon1"  id="ncentro" autocomplete="off" [(ngModel)]="this.denuncia.Ncentro" for="ncentro" >
+                          </div>   
+                    </div></div>
+                 </div>
+                </div>
+    
+ <!-- Modal Paso 2 -->
+    
+        <div *ngIf="this.tab ==2">
+
+            <div>
+                <h4>¿Desea permanecer Anónimo?</h4>
+            </div>
+            <div class="form-check mb-6">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="si" [(ngModel)]="this.denuncia.Anonim">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Sí
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked value="no" [(ngModel)]="this.denuncia.Anonim">
+                <label class="form-check-label" for="flexRadioDefault2">
+                 No
+                </label>
+              </div>
+              <br>
+              <div *ngIf="this.denuncia.Anonim == 'no'">
+                <div class="input-group mb-3">
+                    
+                    <input type="text" class="form-control" placeholder="Nombre Completo" aria-label="Nombre Completo" aria-describedby="basic-addon1" [(ngModel)]="this.denuncia.Complete_Name" name="namec" required>
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1" [(ngModel)]="this.denuncia.Email" name="email" >
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">#</span>
+                    <input type="text" class="form-control" placeholder="Teléfono" aria-label="Teléfono" aria-describedby="basic-addon1" [(ngModel)]="this.denuncia.Phone" name="telefono" >
+                  </div>
+              </div>
+            </div>
+        
+ <!-- Modal Paso 3 -->
+    
+ <div *ngIf="this.tab ==3">
+
+    <div>
+        <h4>Detalle de denuncia</h4>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label" >Detalle de su denuncia</label>
+        <textarea class="form-control" [(ngModel)]="this.denuncia.Detalle" name="detalle" id ="detalle" required></textarea>
+      </div>
+
+      <div>
+        <div class="mb-3">
+            <label for="dateOfBirth">Fecha de los hechos</label>
+            <div class="input-group" required>
+                <input
+                    id="date"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="fd"
+                    ngbDatepicker
+                    #fd="ngbDatepicker"
+                    [(ngModel)]="this.denuncia.Create_Date"/>
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="fd.toggle()" type="button"></button>
+            </div>
+      </div></div><br>
+      <div *ngIf="this.denuncia.Detalle != null && this.denuncia.Detalle != '' && this.denuncia.Create_Date != '' && this.denuncia.Create_Date != null">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="this.password" name="password" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="passwordC" [(ngModel)]="this.confirmpsw" name="confirmpsw" required>
+          </div>
+      </div>
+   
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="validar()">Validar Datos</button>
+        <button type="submit" class="btn btn-danger" (click)="generaDenuncia()" disabled id="guardar">Guardar</button>
+    </div>
+</ng-template>
+</form>

@@ -1,0 +1,32 @@
+<button class="btn btn-success" (click)="modal.open(seguir)">Seguimiento de una denuncia</button>
+
+      
+      <!-- Modal Seguimiento -->
+      <div>
+        <ng-template #seguir let-modal>
+          <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Seguimiento a Denuncia</h4>
+              <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()" id="botonModal" name="botonModal"></button>
+              </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">#</span>
+              <input type="text" class="form-control" placeholder="Número de Folio" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.Folio">
+            </div>
+            
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" placeholder="Contraseña" aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="this.password">
+              <span class="input-group-text" id="password">*</span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" (click)="buscar()" *ngIf="!this.spinner || this.find">Aceptar</button>
+            <br>
+            <div *ngIf="this.spinner" class="spinner"><span>Cargando....</span>&nbsp; 
+              <div class="spinner-border text-primary" role="status">
+              </div>
+            </div>
+          </div>
+              </div></ng-template></div>
+              <br><br>
+              <app-card-detail [find]="this.find" [denunciasSP]="this.denunciasSP"></app-card-detail>
+  

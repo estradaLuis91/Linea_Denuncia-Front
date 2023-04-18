@@ -1,0 +1,36 @@
+
+.body {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100%;
+}
+
+.title{
+    text-align: center;
+    font-family: 'Mukta', sans-serif;
+    font-size: 45px;
+}
+
+.subtitle{
+    text-align: center;
+    font-family: 'Mukta', sans-serif;
+    font-size: 40px;
+}
+
+.inputModal{
+    width: 50%;
+}
+
+.modal{
+    width: 100px;
+    height: 150px;
+    justify-content: center;
+}
+.bodyColor{
+    background-color: aliceblue;
+}
+.spinner{
+    margin: 0 auto;
+    position: initial;
+}
